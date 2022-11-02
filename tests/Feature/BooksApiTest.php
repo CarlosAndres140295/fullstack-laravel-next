@@ -19,9 +19,7 @@ class BooksApiTest extends TestCase
         function test_can_get_all_books(){
             $books = Book::factory(10)->create();
 
-            $response = $this->getJson(route('books.index'));
-
-            $response->assertJsonFragment([
+            $response = $this->getJson(route('books.index'))->assertJsonFragment([
                 'name'=>$books[0]->name
             ]);
         }
@@ -30,9 +28,7 @@ class BooksApiTest extends TestCase
 
             $book = Book::factory()->create();
 
-            $response = $this->getJson(route('books.show', $book));
-
-            $response->assertJsonFragment([
+            $response = $this->getJson(route('books.show', $book))->assertJsonFragment([
                 'name' => $book->name
             ]);
         }
@@ -45,9 +41,7 @@ class BooksApiTest extends TestCase
             $response = $this->postJson(route('books.store'),[
                 'name'=>'mybook',
                 'description' => 'mybook description'
-            ]);
-
-            $response -> assertJsonFragment([
+            ])-> assertJsonFragment([
                 'name' => 'mybook'
             ]);
 
